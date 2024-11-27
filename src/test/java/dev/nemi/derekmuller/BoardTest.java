@@ -9,12 +9,12 @@ import java.sql.SQLException;
 
 @Log4j2
 public class BoardTest {
-
-  BoardDI boardData = new BoardDAO();
-
-  @Test
-  public void test() throws SQLException {
-    long count = boardData.getMaxPages(10);
-    log.info(count);
-  }
+//
+//  BoardDI boardData = new BoardDAO();
+//
+//  @Test
+//  public void test() throws SQLException {
+//    long count = boardData.getMaxPages(10);
+//    log.info(count);
+//  }
 }

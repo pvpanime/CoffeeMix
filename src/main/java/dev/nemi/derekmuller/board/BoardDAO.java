@@ -20,8 +20,8 @@ public class BoardDAO implements BoardDI {
       .id(rs.getLong("id"))
       .title(rs.getString("title"))
       .content(rs.getString("content"))
-      .createdAt(rs.getTimestamp("addTime").toInstant())
-      .lastMod(rs.getTimestamp("lastMod").toInstant())
+      .added(rs.getTimestamp("addTime").toInstant())
+      .updated(rs.getTimestamp("lastMod").toInstant())
       .userId(rs.getObject("userId", Long.class))
       .build();
   }
@@ -38,7 +38,7 @@ public class BoardDAO implements BoardDI {
   @Override
   public void update(BoardVO board) throws SQLException {
     @Cleanup Connection conn = TachibanaHikari.getConnection();
-    @Cleanup PreparedStatement ps = conn.prepareStatement("UPDATE Board SET title = ?, content = ?, lastMod = now() WHERE id = ?");
+    @Cleanup PreparedStatement ps = conn.prepareStatement("UPDATE Board SET title = ?, content = ?, updated = now() WHERE id = ?");
     ps.setString(1, board.getTitle());
     ps.setString(2, board.getContent());
     ps.setLong(3, board.getId());
@@ -49,7 +49,7 @@ public class BoardDAO implements BoardDI {
   public List<BoardVO> getListAt(long offset, long count) throws SQLException {
     List<BoardVO> list = new ArrayList<>();
     @Cleanup Connection conn = TachibanaHikari.getConnection();
-    @Cleanup PreparedStatement ps = conn.prepareStatement("SELECT * FROM Board ORDER BY addTime DESC LIMIT ? OFFSET ?");
+    @Cleanup PreparedStatement ps = conn.prepareStatement("SELECT * FROM Board ORDER BY added DESC LIMIT ? OFFSET ?");
     ps.setLong(1, count);
     ps.setLong(2, offset);
     @Cleanup ResultSet rs = ps.executeQuery();

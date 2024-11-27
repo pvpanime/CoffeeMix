@@ -23,6 +23,6 @@
 - POST `/food/delete`: delete food
   - parameter `id`: the id of the food to delete.
 
-## User
+## User (a.k.a. Patron)
 
-- GET `/login`
+- GET `/login`: show login page

@@ -1,6 +1,5 @@
 package dev.nemi.derekmuller.patron.controller;
 
-import dev.nemi.derekmuller.patron.Patron;
 import lombok.extern.log4j.Log4j2;
 
 import javax.servlet.RequestDispatcher;
@@ -14,7 +13,8 @@ import java.io.IOException;
 
 @Log4j2
 @WebServlet(urlPatterns = {"/login"})
-public class PatronLoginController extends HttpServlet {
+public class PatronLoginViewController extends HttpServlet {
+
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
     HttpSession sess = req.getSession();
@@ -35,16 +35,5 @@ public class PatronLoginController extends HttpServlet {
     rd.forward(req, resp);
   }
 
-  @Override
-  protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-    HttpSession sess = req.getSession();
-    sess.setAttribute("patron", new Patron(req.getParameter("userid")));
-    log.info(sess.getAttribute("patron"));
-    Object backTo = sess.getAttribute("from");
-    if (backTo instanceof String) {
-      resp.sendRedirect(backTo.toString());
-    } else {
-      resp.sendRedirect("/");
-    }
-  }
+
 }

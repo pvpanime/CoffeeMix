@@ -1,6 +1,6 @@
 package dev.nemi.derekmuller.board;
 
-import dev.nemi.derekmuller.M;
+import dev.nemi.derekmuller.Mapp;
 import dev.nemi.derekmuller.board.dto.BoardAddDTO;
 import dev.nemi.derekmuller.board.dto.BoardUpdateDTO;
 import dev.nemi.derekmuller.board.dto.BoardViewDTO;
@@ -17,7 +17,7 @@ public class BoardService {
 
   public BoardService() {
     this.dao = new BoardDAO();
-    this.mapper = M.apper;
+    this.mapper = Mapp.er;
   }
 
   public void add(BoardAddDTO dto) throws SQLException {

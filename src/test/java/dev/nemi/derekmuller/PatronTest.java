@@ -46,11 +46,16 @@ public class PatronTest {
 
   @Test
   public void testLogin() throws SQLException {
-    Patron patron = service.login("me", "12345yu");
-    Assertions.assertNotNull(patron);
-    log.info(patron);
+    Patron patron;
 
     patron = service.login("me", "invalidPassword");
     Assertions.assertNull(patron);
+    log.info(patron);
+    
+    patron = service.login("me", "12345yu");
+    Assertions.assertNotNull(patron);
+    log.info(patron);
+
+
   }
 }

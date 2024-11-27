@@ -1,6 +1,6 @@
 package dev.nemi.derekmuller.food;
 
-import dev.nemi.derekmuller.M;
+import dev.nemi.derekmuller.Mapp;
 import dev.nemi.derekmuller.food.dto.*;
 import lombok.extern.log4j.Log4j2;
 import org.modelmapper.ModelMapper;
@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 @Log4j2
 public class FoodService {
   private final FoodDI foodData = new FoodDAO();
-  private final ModelMapper mapper = M.apper;
+  private final ModelMapper mapper = Mapp.er;
 
   public FoodViewDTO toView(FoodVO vo) {
     return mapper.map(vo, FoodViewDTO.class);

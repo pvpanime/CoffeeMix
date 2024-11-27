@@ -1,7 +1,7 @@
 package dev.nemi.derekmuller.patron;
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
-import dev.nemi.derekmuller.M;
+import dev.nemi.derekmuller.Mapp;
 import dev.nemi.derekmuller.patron.dto.PatronSignupDTO;
 import org.modelmapper.ModelMapper;
 
@@ -15,7 +15,7 @@ public class PatronService {
 
   public PatronService() {
     this.patronDAO = new PatronDAO();
-    this.mapper = M.apper;
+    this.mapper = Mapp.er;
   }
 
   public boolean create(PatronSignupDTO patron) throws SQLException {

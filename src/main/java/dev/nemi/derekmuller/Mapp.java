@@ -4,14 +4,14 @@ import org.modelmapper.ModelMapper;
 import org.modelmapper.config.Configuration;
 import org.modelmapper.convention.MatchingStrategies;
 
-public final class M {
-  private M() {}
+public final class Mapp {
+  private Mapp() {}
 
-  public static final ModelMapper apper;
+  public static final ModelMapper er;
 
   static {
-    apper = new ModelMapper();
-    apper.getConfiguration()
+    er = new ModelMapper();
+    er.getConfiguration()
       .setFieldMatchingEnabled(true)
       .setFieldAccessLevel(Configuration.AccessLevel.PRIVATE)
       .setMatchingStrategy(MatchingStrategies.STRICT);

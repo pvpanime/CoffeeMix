@@ -11,7 +11,7 @@ public class BoardVO {
   private long id;
   private String title;
   private String content;
-  public Instant createdAt;
-  public Instant lastMod;
+  public Instant added;
+  public Instant updated;
   public Long userId;
 }
