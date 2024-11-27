@@ -24,8 +24,6 @@ public class FoodInsertController extends HttpServlet {
 
   @Override
   protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-//    req.setCharacterEncoding("UTF-8");
-//    resp.setCharacterEncoding("UTF-8");
     try {
       String name = req.getParameter("name");
       String description = req.getParameter("description");
