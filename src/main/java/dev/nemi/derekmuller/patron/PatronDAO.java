@@ -10,8 +10,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class PatronDAO {
+public class PatronDAO implements PatronDI {
 
+  @Override
   public void create(PatronVO patron) throws SQLException {
     @Cleanup Connection conn = TachibanaHikari.getConnection();
     @Cleanup PreparedStatement stmt = conn.prepareStatement(
@@ -24,6 +25,7 @@ public class PatronDAO {
     stmt.executeUpdate();
   }
 
+  @Override
   public Patron authenticate(String userid, String rawPassword) throws SQLException {
     @Cleanup Connection conn = TachibanaHikari.getConnection();
     @Cleanup PreparedStatement stmt = conn.prepareStatement(

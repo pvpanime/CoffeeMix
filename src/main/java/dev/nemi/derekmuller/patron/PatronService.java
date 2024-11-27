@@ -2,17 +2,18 @@ package dev.nemi.derekmuller.patron;
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
 import dev.nemi.derekmuller.M;
+import dev.nemi.derekmuller.patron.dto.PatronSignupDTO;
 import org.modelmapper.ModelMapper;
 
 import java.nio.charset.StandardCharsets;
 import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;
 
-public class PatronAccessService {
+public class PatronService {
   private final PatronDAO patronDAO;
   private final ModelMapper mapper;
 
-  public PatronAccessService() {
+  public PatronService() {
     this.patronDAO = new PatronDAO();
     this.mapper = M.apper;
   }

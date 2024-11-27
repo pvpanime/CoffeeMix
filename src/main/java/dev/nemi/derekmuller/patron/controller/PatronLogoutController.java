@@ -1,4 +1,4 @@
-package dev.nemi.derekmuller.patron;
+package dev.nemi.derekmuller.patron.controller;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

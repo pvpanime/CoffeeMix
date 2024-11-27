@@ -1,5 +1,6 @@
-package dev.nemi.derekmuller.patron;
+package dev.nemi.derekmuller.patron.controller;
 
+import dev.nemi.derekmuller.patron.Patron;
 import lombok.extern.log4j.Log4j2;
 
 import javax.servlet.RequestDispatcher;

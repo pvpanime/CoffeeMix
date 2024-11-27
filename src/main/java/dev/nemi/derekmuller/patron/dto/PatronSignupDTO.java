@@ -1,4 +1,4 @@
-package dev.nemi.derekmuller.patron;
+package dev.nemi.derekmuller.patron.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
