@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
 
-@WebServlet(urlPatterns = "/signup")
+@WebServlet(urlPatterns = "/api/signup")
 public class PatronSignupActionController extends HttpServlet {
 
   private PatronService service;

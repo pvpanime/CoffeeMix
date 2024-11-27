@@ -11,11 +11,14 @@
   <div class="list-group">
     <a class="list-group-item" href="${pageContext.request.contextPath}/board">Board</a>
     <a class="list-group-item" href="${pageContext.request.contextPath}/food">Food</a>
-    <a class="list-group-item" href="${pageContext.request.contextPath}/login">Login</a>
+
   </div>
-  <form action="${pageContext.request.contextPath}/logout" method="post">
-    <input type="submit" value="Logout">
-  </form>
+  <div class="py-3">
+    <a class="col btn btn-secondary" href="${pageContext.request.contextPath}/login">Login</a>
+    <form action="${pageContext.request.contextPath}/logout" method="post">
+      <input class="btn btn-danger" type="submit" value="Logout">
+    </form>
+  </div>
 </div>
 </body>
 </html>
