@@ -12,7 +12,7 @@
     <h1 class="h3 mb-3 fw-normal text-center">Login</h1>
 
     <div class="form-floating">
-      <input type="text" name="userid" class="form-control" id="floatingInput" placeholder="&lt;Your ID&gt;" required>
+      <input type="text" name="userid" class="form-control" id="floatingInput" placeholder="&lt;Your ID&gt;" autocomplete="off" required>
       <label for="floatingInput">User ID</label>
     </div>
     <div class="form-floating mt-1">

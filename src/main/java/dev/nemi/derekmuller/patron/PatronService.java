@@ -2,6 +2,7 @@ package dev.nemi.derekmuller.patron;
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
 import dev.nemi.derekmuller.Mapp;
+import dev.nemi.derekmuller.patron.dto.PatronProfileDTO;
 import dev.nemi.derekmuller.patron.dto.PatronSignupDTO;
 import org.modelmapper.ModelMapper;
 
@@ -38,5 +39,14 @@ public class PatronService {
 
   public Patron login(String userid, String rawPassword) throws SQLException {
     return patronDAO.authenticate(userid, rawPassword);
+  }
+
+  public PatronProfileDTO getProfile(String userid) throws SQLException {
+    return mapper.map(patronDAO.getProfile(userid), PatronProfileDTO.class);
+  }
+
+  public boolean updateProfile(PatronProfileDTO patron) throws SQLException {
+    int rows = patronDAO.update(mapper.map(patron, Patron.class));
+    return rows > 0;
   }
 }

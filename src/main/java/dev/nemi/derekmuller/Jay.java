@@ -8,7 +8,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-public class Jay {
+public final class Jay {
+  private Jay() {}
   public static void son(HttpServletRequest req, HttpServletResponse res, JSONObject obj)
     throws JSONException, IOException {
     res.setContentType("application/json");

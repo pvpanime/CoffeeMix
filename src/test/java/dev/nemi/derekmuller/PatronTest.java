@@ -3,6 +3,7 @@ package dev.nemi.derekmuller;
 import at.favre.lib.crypto.bcrypt.BCrypt;
 import dev.nemi.derekmuller.patron.Patron;
 import dev.nemi.derekmuller.patron.PatronService;
+import dev.nemi.derekmuller.patron.dto.PatronProfileDTO;
 import dev.nemi.derekmuller.patron.dto.PatronSignupDTO;
 import lombok.extern.log4j.Log4j2;
 import org.junit.jupiter.api.Assertions;
@@ -20,17 +21,6 @@ public class PatronTest {
   @BeforeEach
   public void setUp() {
     service = new PatronService();
-  }
-
-  @Test
-  public void testBCrypt() {
-
-    byte[] hash = BCrypt.withDefaults().hash(12, "password".getBytes(StandardCharsets.UTF_8));
-    log.info(hash);
-
-    BCrypt.Result result = BCrypt.verifyer().verify("password".getBytes(StandardCharsets.UTF_8), hash);
-    log.info(result.toString());
-    Assertions.assertTrue(result.verified);
   }
 
   @Test
@@ -56,6 +46,28 @@ public class PatronTest {
     Assertions.assertNotNull(patron);
     log.info(patron);
 
-
   }
+
+  @Test
+  public void testProfile() throws SQLException {
+    PatronProfileDTO dto = service.getProfile("me");
+    Assertions.assertNotNull(dto);
+    log.info(dto);
+
+    dto = service.getProfile("user");
+    Assertions.assertNotNull(dto);
+    log.info(dto);
+  }
+
+  @Test
+  public void testUpdate() throws SQLException {
+    PatronProfileDTO dto = service.getProfile("user");
+    boolean success = service.updateProfile(PatronProfileDTO.builder()
+      .userid(dto.getUserid())
+        .username("초능력자")
+      .email("superhero@gmail.com")
+      .build());
+    Assertions.assertTrue(success);
+  }
+
 }

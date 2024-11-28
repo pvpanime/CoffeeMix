@@ -19,23 +19,23 @@
     <h1 class="h3 mb-3 fw-normal text-center">Signup</h1>
 
     <div class="form-floating mt-1">
-      <input type="text" name="userid" class="form-control" id="ui" placeholder="&lt;Your ID&gt;" required>
+      <input type="text" name="userid" class="form-control" id="ui" placeholder="&lt;Your ID&gt;" autocomplete="off" required>
       <label for="ui">User ID</label>
     </div>
     <div class="form-floating">
-      <input type="password" name="password" class="form-control" id="pw" placeholder="Password" required>
+      <input type="password" name="password" class="form-control" id="pw" placeholder="Password" autocomplete="off" required>
       <label for="pw">Password</label>
     </div>
     <div class="form-floating">
-      <input type="password" class="form-control" id="confirm" placeholder="Password confirm" required>
+      <input type="password" class="form-control" id="confirm" placeholder="Password confirm" autocomplete="off" required>
       <label for="confirm">Password Confirm</label>
     </div>
     <div class="form-floating">
-      <input type="text" name="username" class="form-control" id="uname" placeholder="Public name" required>
+      <input type="text" name="username" class="form-control" id="uname" placeholder="Public name" autocomplete="off" required>
       <label for="uname">Public name</label>
     </div>
     <div class="form-floating mb-1">
-      <input type="email" name="email" class="form-control" id="ue" placeholder="janedoe@zzz.com" required>
+      <input type="email" name="email" class="form-control" id="ue" placeholder="janedoe@zzz.com" autocomplete="off" required>
       <label for="ue">Email</label>
     </div>
 

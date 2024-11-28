@@ -20,9 +20,9 @@ public class BoardDAO implements BoardDI {
       .id(rs.getLong("id"))
       .title(rs.getString("title"))
       .content(rs.getString("content"))
-      .added(rs.getTimestamp("addTime").toInstant())
-      .updated(rs.getTimestamp("lastMod").toInstant())
-      .userId(rs.getObject("userId", Long.class))
+      .added(rs.getTimestamp("added").toInstant())
+      .updated(rs.getTimestamp("updated").toInstant())
+      .userId(rs.getObject("userid", Long.class))
       .build();
   }
 

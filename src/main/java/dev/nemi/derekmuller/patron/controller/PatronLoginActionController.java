@@ -3,6 +3,7 @@ package dev.nemi.derekmuller.patron.controller;
 import dev.nemi.derekmuller.Jay;
 import dev.nemi.derekmuller.patron.Patron;
 import dev.nemi.derekmuller.patron.PatronService;
+import dev.nemi.derekmuller.patron.dto.PatronProfileDTO;
 import lombok.extern.log4j.Log4j2;
 import org.json.JSONObject;
 
@@ -40,8 +41,9 @@ public class PatronLoginActionController extends HttpServlet {
         Jay.son(req, resp, new JSONObject().put("error", "Invalid username or password"));
         return;
       }
+      PatronProfileDTO profile = service.getProfile(userid);
       HttpSession sess = req.getSession();
-      sess.setAttribute("patron", patron);
+      sess.setAttribute("patron", profile);
       Object backTo = sess.getAttribute("from");
       String backToString = backTo instanceof String ? (String) backTo : "/";
       resp.setStatus(HttpServletResponse.SC_OK);

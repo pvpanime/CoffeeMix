@@ -38,8 +38,10 @@ public class BoardIndexController extends HttpServlet {
       RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/board/index.jsp");
       rd.forward(req, resp);
     } catch (NumberFormatException ne) {
+      ne.printStackTrace();
       resp.sendError(HttpServletResponse.SC_BAD_REQUEST);
     } catch (SQLException e) {
+      e.printStackTrace();
       resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
     }
 

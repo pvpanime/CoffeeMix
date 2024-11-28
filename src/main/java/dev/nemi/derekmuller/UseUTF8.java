@@ -6,6 +6,7 @@ import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 @WebFilter(urlPatterns = {"/*"})
@@ -18,6 +19,16 @@ public class UseUTF8 implements Filter {
     HttpServletResponse response = (HttpServletResponse) servletResponse;
     request.setCharacterEncoding("UTF-8");
     response.setCharacterEncoding("UTF-8");
+
+    if (request.getRequestURI().equals("/")) {
+      HttpSession session = request.getSession();
+      if (session != null && session.getAttribute("patron") != null) {
+        request.setAttribute("patron", session.getAttribute("patron"));
+      }
+      request.getRequestDispatcher("/index.jsp").forward(request, response);
+      return;
+    }
+    
     filterChain.doFilter(request, response);
   }
 

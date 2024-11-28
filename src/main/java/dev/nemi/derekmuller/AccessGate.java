@@ -1,4 +1,4 @@
-package dev.nemi.derekmuller.board.controller;
+package dev.nemi.derekmuller;
 
 import lombok.extern.log4j.Log4j2;
 
@@ -10,8 +10,8 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 @Log4j2
-@WebFilter(urlPatterns = {"/board/write/*", "/board/edit/*"})
-public class BoardGate implements Filter {
+@WebFilter(urlPatterns = {"/board/write/*", "/board/edit/*", "/food/*", "/user/*"})
+public class AccessGate implements Filter {
   @Override
   public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain chain) throws IOException, ServletException {
 
