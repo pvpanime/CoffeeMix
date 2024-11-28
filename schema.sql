@@ -68,6 +68,7 @@ CREATE TABLE IF NOT EXISTS `Food` (
   `description` varchar(1024) NOT NULL,
   `wonPrice` bigint(20) unsigned NOT NULL,
   `status` int(2) NOT NULL DEFAULT 1,
+  `committer` varchar(32) DEFAULT NULL,
   PRIMARY KEY (`id`),
   CONSTRAINT `nameConstraint` CHECK (octet_length(`name`) > 0),
   CONSTRAINT `descriptionConstraint` CHECK (octet_length(`description`) > 0)
@@ -89,6 +90,18 @@ CREATE TABLE IF NOT EXISTS `FoodReview` (
 
 -- Data exporting was unselected.
 
+-- Dumping structure for view weeb.FoodWithReview
+DROP VIEW IF EXISTS `FoodWithReview`;
+-- Creating temporary table to overcome VIEW dependency errors
+CREATE TABLE `FoodWithReview` (
+	`id` INT(10) UNSIGNED NOT NULL,
+	`name` VARCHAR(1) NOT NULL COLLATE 'utf8mb4_general_ci',
+	`description` VARCHAR(1) NOT NULL COLLATE 'utf8mb4_general_ci',
+	`wonPrice` BIGINT(20) UNSIGNED NOT NULL,
+	`status` INT(2) NOT NULL,
+	`avgRate` DECIMAL(14,4) NOT NULL
+) ENGINE=MyISAM;
+
 -- Dumping structure for table weeb.Patron
 DROP TABLE IF EXISTS `Patron`;
 CREATE TABLE IF NOT EXISTS `Patron` (
@@ -97,6 +110,7 @@ CREATE TABLE IF NOT EXISTS `Patron` (
   `secret` varbinary(256) NOT NULL,
   `email` varchar(256) NOT NULL,
   `added` datetime NOT NULL DEFAULT current_timestamp(),
+  `ticket` varchar(36) DEFAULT NULL COMMENT 'use uuid',
   `status` int(2) NOT NULL DEFAULT 0,
   PRIMARY KEY (`userid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -153,6 +167,10 @@ CREATE TRIGGER `set_board_id_hash` BEFORE INSERT ON `Board` FOR EACH ROW BEGIN
 END//
 DELIMITER ;
 SET SQL_MODE=@OLDTMP_SQL_MODE;
+
+-- Removing temporary table and create final VIEW structure
+DROP TABLE IF EXISTS `FoodWithReview`;
+CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `FoodWithReview` AS select `F`.`id` AS `id`,`F`.`name` AS `name`,`F`.`description` AS `description`,`F`.`wonPrice` AS `wonPrice`,`F`.`status` AS `status`,ifnull(`FR`.`rate`,0) AS `avgRate` from (`Food` `F` left join (select `FoodReview`.`foodId` AS `foodId`,avg(`FoodReview`.`rate`) AS `rate` from `FoodReview` group by `FoodReview`.`foodId`) `FR` on(`F`.`id` = `FR`.`foodId`));
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
