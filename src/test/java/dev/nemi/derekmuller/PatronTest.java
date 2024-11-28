@@ -1,8 +1,8 @@
 package dev.nemi.derekmuller;
 
-import at.favre.lib.crypto.bcrypt.BCrypt;
 import dev.nemi.derekmuller.patron.Patron;
 import dev.nemi.derekmuller.patron.PatronService;
+import dev.nemi.derekmuller.patron.PatronVO;
 import dev.nemi.derekmuller.patron.dto.PatronProfileDTO;
 import dev.nemi.derekmuller.patron.dto.PatronSignupDTO;
 import lombok.extern.log4j.Log4j2;
@@ -10,7 +10,6 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.nio.charset.StandardCharsets;
 import java.sql.SQLException;
 
 @Log4j2
@@ -68,6 +67,16 @@ public class PatronTest {
       .email("superhero@gmail.com")
       .build());
     Assertions.assertTrue(success);
+  }
+
+  @Test
+  public void voValueMapperTest() {
+    PatronVO vo = PatronVO.builder().userid("alice").secret(null).username("Alice").email("alice@example.com").build();
+    PatronProfileDTO dto = Mapp.er.map(vo, PatronProfileDTO.class);
+    log.info(dto);
+
+    PatronVO back = Mapp.er.map(dto, PatronVO.class);
+    log.info(back);
   }
 
 }

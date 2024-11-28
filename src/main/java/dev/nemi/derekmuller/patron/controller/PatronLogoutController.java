@@ -13,7 +13,10 @@ public class PatronLogoutController extends HttpServlet {
   @Override
   protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
     HttpSession session = req.getSession();
-    if (session != null) session.invalidate();
+    if (session != null) {
+      session.removeAttribute("patron");
+      session.invalidate();
+    }
     resp.sendRedirect(req.getContextPath() + "/");
   }
 }
