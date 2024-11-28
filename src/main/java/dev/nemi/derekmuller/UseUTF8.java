@@ -21,10 +21,6 @@ public class UseUTF8 implements Filter {
     response.setCharacterEncoding("UTF-8");
 
     if (request.getRequestURI().equals("/")) {
-      HttpSession session = request.getSession();
-      if (session != null && session.getAttribute("patron") != null) {
-        request.setAttribute("patron", session.getAttribute("patron"));
-      }
       request.getRequestDispatcher("/index.jsp").forward(request, response);
       return;
     }

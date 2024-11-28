@@ -11,7 +11,7 @@ import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;
 
 public class PatronService {
-  private final PatronDAO patronDAO;
+  private final PatronDI patronDAO;
   private final ModelMapper mapper;
 
   public PatronService() {
@@ -38,7 +38,13 @@ public class PatronService {
   }
 
   public Patron login(String userid, String rawPassword) throws SQLException {
-    return patronDAO.authenticate(userid, rawPassword);
+    PatronVO auth = patronDAO.getAuth(userid);
+    if (auth == null) return null;
+
+    BCrypt.Result result = BCrypt.verifyer().verify(rawPassword.getBytes(StandardCharsets.UTF_8), auth.getSecret());
+    if (!result.verified) return null;
+
+    return Patron.builder().userid(auth.getUserid()).build();
   }
 
   public PatronProfileDTO getProfile(String userid) throws SQLException {

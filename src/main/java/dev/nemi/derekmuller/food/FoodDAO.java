@@ -23,6 +23,16 @@ public class FoodDAO implements FoodDI {
       .build();
   }
 
+  private static FoodWithReviewVO rVoFrom(ResultSet rs) throws SQLException {
+    return FoodWithReviewVO.builder()
+      .id(rs.getLong("id"))
+      .name(rs.getString("name"))
+      .description(rs.getString("description"))
+      .price(rs.getLong("wonPrice"))
+      .status(rs.getInt("status"))
+      .rate(rs.getDouble("avgRate"))
+      .build();
+  }
 
   @Override
   public List<FoodVO> getAll() throws SQLException {
@@ -35,7 +45,17 @@ public class FoodDAO implements FoodDI {
   }
 
   @Override
-  public FoodVO getById(long id) throws SQLException {
+  public List<FoodWithReviewVO> listWithReview() throws SQLException {
+    List<FoodWithReviewVO> list = new ArrayList<>();
+    @Cleanup Connection conn = TachibanaHikari.getConnection();
+    @Cleanup PreparedStatement ps = conn.prepareStatement("SELECT * FROM FoodWithReview");
+    @Cleanup ResultSet rs = ps.executeQuery();
+    while (rs.next()) list.add(rVoFrom(rs));
+    return list;
+  }
+
+  @Override
+  public FoodVO getOneById(long id) throws SQLException {
     @Cleanup Connection conn = TachibanaHikari.getConnection();
     @Cleanup PreparedStatement ps = conn.prepareStatement("SELECT * FROM Food WHERE id = ?");
     ps.setLong(1, id);

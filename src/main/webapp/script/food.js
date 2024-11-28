@@ -111,9 +111,9 @@ document.querySelectorAll('#main-table tbody tr').forEach(tr => {
         }
         return false
     })
-    tr.querySelector("button.btn-danger").addEventListener('click', () => {
-        requestDelete(id)
-    })
+    // tr.querySelector("button.btn-danger").addEventListener('click', () => {
+    //     requestDelete(id)
+    // })
 })
 document.getElementById('submit-button').addEventListener('click', doSubmit)
 document.getElementById('cancel-button').addEventListener('click', () => dialog.close());

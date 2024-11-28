@@ -1,19 +1,16 @@
 package dev.nemi.derekmuller.food;
 
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-@Data
-@NoArgsConstructor
+@Value
+@NoArgsConstructor(force = true)
 @AllArgsConstructor
 @Builder
 public class FoodVO {
-  private long id;
-  private String name;
-  private String description;
-  private long price;
-  private int status;
+  long id;
+  String name;
+  String description;
+  long price;
+  int status;
 }

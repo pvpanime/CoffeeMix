@@ -4,6 +4,7 @@ import dev.nemi.derekmuller.food.FoodService;
 import dev.nemi.derekmuller.food.dto.FoodAddDTO;
 import dev.nemi.derekmuller.food.dto.FoodViewDTO;
 import dev.nemi.derekmuller.food.dto.FoodWholeUpdateDTO;
+import dev.nemi.derekmuller.food.dto.FoodWithReviewDTO;
 import lombok.extern.log4j.Log4j2;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -37,7 +38,7 @@ public class FoodServiceTest {
 
   @Test
   public void getAllTest() throws SQLException {
-    List<FoodViewDTO> list = service.listAll();
+    List<FoodWithReviewDTO> list = service.listWithReview();
     log.info(list);
   }
 //

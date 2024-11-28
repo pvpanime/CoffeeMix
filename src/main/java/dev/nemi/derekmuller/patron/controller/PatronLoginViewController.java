@@ -18,17 +18,10 @@ public class PatronLoginViewController extends HttpServlet {
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
     HttpSession sess = req.getSession();
-    if (sess != null) {
-      if (sess.getAttribute("patron") != null) {
-        log.info(sess.getAttribute("patron"));
 
-        resp.sendRedirect("/");
-        return;
-      } else {
-        log.info("Somehow, the hollow session arisen.");
-      }
-    } else {
-      log.info("Logout worked as intended?!");
+    if (sess != null && sess.getAttribute("patron") != null) {
+      resp.sendRedirect("/");
+      return;
     }
 
     RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/patron/login.jsp");

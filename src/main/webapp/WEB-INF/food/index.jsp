@@ -75,8 +75,9 @@
       <th>이름</th>
       <th>가격(원)</th>
       <th>설명</th>
+      <th>평점</th>
       <th>판매 여부</th>
-      <th>삭제</th>
+<%--      <th>삭제</th>--%>
     </tr>
     </thead>
     <tbody>
@@ -85,8 +86,9 @@
         <td>${food.name}</td>
         <td class="text-end">${food.getPriceView()}</td>
         <td class="use-pre-wrap">${food.description}</td>
-        <td><input class="status-checkbox" type="checkbox" ${(food.getStatus() > 0) ? "checked" : ""} ></td>
-        <td><button class="btn btn-danger">삭제</button></td>
+        <td>${food.getAvgRateView()}</td>
+        <td><input class="status-checkbox" type="checkbox" ${(food.getStatus() > 0) ? "checked" : ""} disabled></td>
+<%--        <td><button class="btn btn-danger">삭제</button></td>--%>
       </tr>
     </c:forEach>
     </tbody>

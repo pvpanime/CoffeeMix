@@ -34,7 +34,7 @@ public class PatronTest {
   }
 
   @Test
-  public void testLogin() throws SQLException {
+  public void loginTest() throws SQLException {
     Patron patron;
 
     patron = service.login("me", "invalidPassword");

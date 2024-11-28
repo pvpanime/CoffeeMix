@@ -17,6 +17,7 @@ public class FoodService {
   public FoodViewDTO toView(FoodVO vo) {
     return mapper.map(vo, FoodViewDTO.class);
   }
+  public FoodWithReviewDTO toView(FoodWithReviewVO vo) { return mapper.map(vo, FoodWithReviewDTO.class); }
 
   public FoodVO use(FoodAddDTO dto) {
     return mapper.map(dto, FoodVO.class);
@@ -27,13 +28,17 @@ public class FoodService {
   }
 
   public FoodViewDTO getOne(long id) throws SQLException {
-    FoodVO vo = foodData.getById(id);
+    FoodVO vo = foodData.getOneById(id);
     return toView(vo);
   }
 
   public List<FoodViewDTO> listAll() throws SQLException {
     List<FoodVO> ls = foodData.getAll();
     return ls.stream().map(this::toView).collect(Collectors.toList());
+  }
+
+  public List<FoodWithReviewDTO> listWithReview() throws SQLException {
+    return foodData.listWithReview().stream().map(this::toView).collect(Collectors.toList());
   }
 
   public void add(FoodAddDTO dto) throws SQLException {

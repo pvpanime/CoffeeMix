@@ -27,10 +27,10 @@
       </label>
     </div>
     <button class="btn btn-primary w-100 py-2" type="submit">Login</button>
-    <div class="text-center mt-3"> have no account?</div>
-    <a class="btn btn-outline-light w-100 py-2 mt-1" href="${pageContext.request.contextPath}/signup">Create new
-      Account</a>
   </form>
+  <div class="text-center mt-3"> have no account?</div>
+  <a class="btn btn-outline-light w-100 py-2 mt-1" href="${pageContext.request.contextPath}/signup">Create new
+    Account</a>
 </main>
 <script>
     async function doLogin() {
@@ -42,7 +42,14 @@
                 body
             })
             if (response.status === 401) {
-                window.alert('Login failed');
+                const div = document.createElement('div')
+                div.classList.add('alert')
+                div.classList.add('alert-danger')
+                div.innerHTML = "Login failed"
+                form.parentElement.insertBefore(div, form.nextElementSibling)
+                window.setTimeout(() => {
+                    div.remove()
+                }, 5000)
                 return
             } else if (!response.ok) throw new Error(response.status + " " + response.statusText)
             const json = await response.json()

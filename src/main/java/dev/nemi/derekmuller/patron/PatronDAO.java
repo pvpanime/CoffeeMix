@@ -1,10 +1,8 @@
 package dev.nemi.derekmuller.patron;
 
-import at.favre.lib.crypto.bcrypt.BCrypt;
 import dev.nemi.derekmuller.TachibanaHikari;
 import lombok.Cleanup;
 
-import java.nio.charset.StandardCharsets;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -26,7 +24,7 @@ public class PatronDAO implements PatronDI {
   }
 
   @Override
-  public Patron authenticate(String userid, String rawPassword) throws SQLException {
+  public PatronVO getAuth(String userid) throws SQLException {
     @Cleanup Connection conn = TachibanaHikari.getConnection();
     @Cleanup PreparedStatement stmt = conn.prepareStatement(
       "SELECT userid, secret FROM Patron WHERE userid = ?;"
@@ -34,15 +32,14 @@ public class PatronDAO implements PatronDI {
     stmt.setString(1, userid);
     @Cleanup ResultSet rs = stmt.executeQuery();
     if (!rs.next()) return null;
-    byte[] secret = rs.getBytes("secret");
-    BCrypt.Result result = BCrypt.verifyer().verify(rawPassword.getBytes(StandardCharsets.UTF_8), secret);
-    if (!result.verified) return null;
-    return Patron.builder()
+    return PatronVO.builder()
       .userid(rs.getString("userid"))
+      .secret(rs.getBytes("secret"))
       .build();
   }
 
-  public Patron getProfile(String userid) throws SQLException {
+  @Override
+  public PatronVO getProfile(String userid) throws SQLException {
     @Cleanup Connection conn = TachibanaHikari.getConnection();
     @Cleanup PreparedStatement stmt = conn.prepareStatement(
       "SELECT userid, username, email FROM Patron WHERE userid = ?;"
@@ -51,13 +48,14 @@ public class PatronDAO implements PatronDI {
     @Cleanup ResultSet rs = stmt.executeQuery();
     if (!rs.next()) return null;
 
-    return Patron.builder()
+    return PatronVO.builder()
       .userid(rs.getString("userid"))
       .username(rs.getString("username"))
       .email(rs.getString("email"))
       .build();
   }
 
+  @Override
   public int update(Patron patron) throws SQLException {
     @Cleanup Connection conn = TachibanaHikari.getConnection();
     @Cleanup PreparedStatement stmt = conn.prepareStatement(

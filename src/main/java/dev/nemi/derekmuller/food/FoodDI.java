@@ -8,7 +8,9 @@ import java.util.List;
 public interface FoodDI {
   List<FoodVO> getAll() throws SQLException;
 
-  FoodVO getById(long id) throws SQLException;
+  List<FoodWithReviewVO> listWithReview() throws SQLException;
+
+  FoodVO getOneById(long id) throws SQLException;
 
   void add(@NotNull FoodVO food) throws SQLException;
 

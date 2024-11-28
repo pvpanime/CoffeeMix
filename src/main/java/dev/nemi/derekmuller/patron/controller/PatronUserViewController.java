@@ -17,10 +17,6 @@ public class PatronUserViewController extends HttpServlet {
 
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-    HttpSession session = req.getSession();
-    PatronProfileDTO patron = (PatronProfileDTO) session.getAttribute("patron");
-    req.setAttribute("patron", patron);
     req.getRequestDispatcher("/WEB-INF/patron/user.jsp").forward(req, resp);
   }
 }

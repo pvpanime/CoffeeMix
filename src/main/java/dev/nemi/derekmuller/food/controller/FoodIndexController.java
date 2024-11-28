@@ -26,7 +26,7 @@ public class FoodIndexController extends HttpServlet {
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
     try {
-      req.setAttribute("foods", service.listAll());
+      req.setAttribute("foods", service.listWithReview());
       RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/food/index.jsp");
       dispatcher.forward(req, resp);
     } catch (SQLException e) {
