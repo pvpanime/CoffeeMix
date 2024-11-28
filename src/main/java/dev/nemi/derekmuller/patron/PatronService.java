@@ -47,6 +47,21 @@ public class PatronService {
     return Patron.builder().userid(auth.getUserid()).build();
   }
 
+  public String createTicketFor(String userid) throws SQLException {
+    return patronDAO.setTicket(userid);
+  }
+
+
+  public String challengeTicket(String ticket) throws SQLException {
+//    String stored = patronDAO.getTicket(userid);
+//    return stored != null && stored.equals(ticket);
+    return patronDAO.getPatronByTicket(ticket);
+  }
+
+  public void purgeTicket(String userid) throws SQLException {
+    patronDAO.deleteTicket(userid);
+  }
+
   public PatronProfileDTO getProfile(String userid) throws SQLException {
     return mapper.map(patronDAO.getProfile(userid), PatronProfileDTO.class);
   }

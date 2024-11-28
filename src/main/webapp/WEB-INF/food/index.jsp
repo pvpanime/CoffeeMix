@@ -15,7 +15,7 @@
 </head>
 <body data-bs-theme="dark">
 <style>
-    #the-modal-dialog {
+    #edit-dialog {
         border-radius: 8px;
         width: max(45vw, 300px);
     }
@@ -40,30 +40,48 @@
         height: 100%;
     }
 </style>
-<dialog id="the-modal-dialog">
-    <form method="dialog" action="#" id="my-fucking-form">
-      <input id="food-id" type="hidden" name="id"/>
-      <div class="row mb-3">
-        <label for="food-name" class="col-sm-4 col-form-label">Food Name:</label>
+<dialog id="edit-dialog">
+    <form method="dialog" action="#" id="food-edit-form">
+      <input id="food-input-id" type="hidden" name="id"/>
+      <div class="mb-3">
+        <label for="food-input-name">Food Name:</label>
         <div class="width-100">
-          <input id="food-name" class="form-control" type="text" name="name"/>
+          <input id="food-input-name" class="form-control" type="text" name="name"/>
         </div>
       </div>
-      <div class="row mb-3">
-        <label for="food-price" class="col-sm-4 col-form-label">Price:</label>
+      <div class="mb-3">
+        <label for="food-input-price">Price:</label>
         <div class="width-100">
-          <input id="food-price" class="form-control" type="number" name="price"/>
+          <input id="food-input-price" class="form-control" type="number" name="price"/>
         </div>
       </div>
-      <div class="row mb-3">
-        <label for="food-desc" class="col-sm-4 col-form-label">Description:</label>
+      <div class="mb-3">
+        <label for="food-input-desc">Description:</label>
         <div class="width-100">
-          <textarea id="food-desc" class="form-control" name="description" rows="6"></textarea>
+          <textarea id="food-input-desc" class="form-control" name="description" rows="5"></textarea>
         </div>
       </div>
       <button class="btn btn-primary" id="submit-button">Submit</button>
       <button class="btn btn-danger" id="cancel-button">Cancel</button>
     </form>
+</dialog>
+<dialog id="view-only-dialog">
+  <div id="food-view-name"></div>
+  <div id="food-view-price"></div>
+  <div id="food-view-desc"></div>
+  <div>
+    <div>평점 남기기</div>
+    <div class="row">
+      <div class="col">1</div>
+      <div class="col">2</div>
+      <div class="col">3</div>
+      <div class="col">4</div>
+      <div class="col">5</div>
+    </div>
+  </div>
+  <div>
+    <button class="btn btn-danger" id="close-view-button">Close</button>
+  </div>
 </dialog>
 <div class="jumbotron text-light text-center py-5">
   <h1 class="display-1">Foods</h1>
@@ -93,7 +111,7 @@
     </c:forEach>
     </tbody>
   </table>
-  <button type="button" class="btn btn-primary" onclick="openDialogForNew()">New</button>
+  <button type="button" class="btn btn-primary" onclick="openFoodEdit()">New</button>
 </div>
 <script src="${pageContext.request.contextPath}/script/food.js"></script>
 </body>

@@ -1,5 +1,6 @@
 package dev.nemi.derekmuller.patron.controller;
 
+import dev.nemi.derekmuller.Coo;
 import dev.nemi.derekmuller.Jay;
 import dev.nemi.derekmuller.patron.Patron;
 import dev.nemi.derekmuller.patron.PatronService;
@@ -9,18 +10,15 @@ import org.json.JSONObject;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import javax.servlet.http.*;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.SQLException;
 
 @Log4j2
 @WebServlet(urlPatterns = {"/api/login"})
 public class PatronLoginActionController extends HttpServlet {
 
+  private static final int life = 3600 * 24 * 7;
   private PatronService service;
 
   @Override
@@ -34,6 +32,9 @@ public class PatronLoginActionController extends HttpServlet {
 
     String userid = req.getParameter("userid");
     String rawPassword = req.getParameter("password");
+    String rememberMe = req.getParameter("remember-me");
+    log.info("rememberMe= {}", rememberMe);
+
     try {
       Patron patron = service.login(userid, rawPassword);
       if (patron == null) {
@@ -42,9 +43,14 @@ public class PatronLoginActionController extends HttpServlet {
         return;
       }
       PatronProfileDTO profile = service.getProfile(userid);
-      HttpSession sess = req.getSession();
-      sess.setAttribute("patron", profile);
-      Object backTo = sess.getAttribute("from");
+      req.getSession().setAttribute("patron", profile);
+
+      if (rememberMe != null) {
+        String ticketString = service.createTicketFor(userid);
+        resp.addCookie(Coo.kie("PatronTicket", ticketString, life));
+      }
+
+      Object backTo = req.getSession().getAttribute("from");
       String backToString = backTo instanceof String ? (String) backTo : "/";
       resp.setStatus(HttpServletResponse.SC_OK);
       Jay.son(req, resp, new JSONObject().put("backTo", backToString));

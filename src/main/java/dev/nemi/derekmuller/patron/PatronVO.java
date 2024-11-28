@@ -14,4 +14,5 @@ public class PatronVO {
   byte[] secret;
   Instant added;
   String email;
+  String ticket;
 }

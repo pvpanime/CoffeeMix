@@ -7,6 +7,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.UUID;
 
 public class PatronDAO implements PatronDI {
 
@@ -36,6 +37,54 @@ public class PatronDAO implements PatronDI {
       .userid(rs.getString("userid"))
       .secret(rs.getBytes("secret"))
       .build();
+  }
+
+  @Override
+  public String setTicket(String userid) throws SQLException {
+    @Cleanup Connection conn = TachibanaHikari.getConnection();
+    @Cleanup PreparedStatement stmt = conn.prepareStatement(
+      "UPDATE Patron SET ticket = ? WHERE userid = ?"
+    );
+    String uuid = UUID.randomUUID().toString();
+    stmt.setString(1, uuid);
+    stmt.setString(2, userid);
+    stmt.executeUpdate();
+
+    return uuid;
+  }
+
+  @Override
+  public String getPatronByTicket(String ticket) throws SQLException {
+    @Cleanup Connection conn = TachibanaHikari.getConnection();
+    @Cleanup PreparedStatement stmt = conn.prepareStatement(
+      "SELECT userid FROM Patron WHERE ticket = ?"
+    );
+    stmt.setString(1, ticket);
+    @Cleanup ResultSet rs = stmt.executeQuery();
+    if (!rs.next()) return null;
+    return rs.getString("userid");
+  }
+
+  @Override
+  public String getTicket(String userid) throws SQLException {
+    @Cleanup Connection conn = TachibanaHikari.getConnection();
+    @Cleanup PreparedStatement stmt = conn.prepareStatement(
+      "SELECT ticket FROM Patron WHERE userid = ?"
+    );
+    stmt.setString(1, userid);
+    @Cleanup ResultSet rs = stmt.executeQuery();
+    if (!rs.next()) return null;
+    return rs.getString("ticket");
+  }
+
+  @Override
+  public void deleteTicket(String userid) throws SQLException {
+    @Cleanup Connection conn = TachibanaHikari.getConnection();
+    @Cleanup PreparedStatement stmt = conn.prepareStatement(
+      "UPDATE Patron SET ticket = NULL WHERE userid = ?"
+    );
+    stmt.setString(1, userid);
+    stmt.executeUpdate();
   }
 
   @Override

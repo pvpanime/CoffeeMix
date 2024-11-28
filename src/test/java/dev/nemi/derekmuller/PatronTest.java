@@ -79,4 +79,13 @@ public class PatronTest {
     log.info(back);
   }
 
+  @Test
+  public void ticketTest() throws SQLException {
+    String ticket = service.createTicketFor("me");
+    log.info(ticket);
+
+    String got = service.challengeTicket(ticket);
+    log.info(got);
+  }
+
 }

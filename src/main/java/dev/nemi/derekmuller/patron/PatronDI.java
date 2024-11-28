@@ -7,6 +7,14 @@ public interface PatronDI {
 
   PatronVO getAuth(String userid) throws SQLException;
 
+  String setTicket(String userid) throws SQLException;
+
+  String getPatronByTicket(String ticket) throws SQLException;
+
+  String getTicket(String userid) throws SQLException;
+
+  void deleteTicket(String userid) throws SQLException;
+
   PatronVO getProfile(String userid) throws SQLException;
 
   int update(Patron patron) throws SQLException;
